@@ -18,8 +18,6 @@ public class Main {
             coins[i] = Integer.parseInt(br.readLine());
         }
     
-        Arrays.sort(coins);
-
         int[] dp = new int[k + 1];
         dp[0] = 1;
         for (int i = coins.length - 1; i >= 0; --i) {
@@ -29,7 +27,6 @@ public class Main {
                 }
             }
         }
-
         System.out.println(dp[k]);
     }   
 }
