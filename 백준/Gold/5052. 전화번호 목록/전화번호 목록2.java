@@ -14,7 +14,7 @@ public class Main {
 
             int n = Integer.parseInt(br.readLine());
             Node root = new Node();
-            int leafCnt = 0;
+            boolean isPrefix = false;
 
             List<String> strs = new ArrayList<>();
             for (int i = 0; i < n; i++) {
@@ -30,21 +30,25 @@ public class Main {
                 for (int j = 0; j < str.length(); j++) {
                     current.children.putIfAbsent(str.charAt(j), new Node());
                     if (current.isLeaf) {
-                        leafCnt--;
+                        isPrefix = true;
+                        break;
                     }
                     current = current.children.get(str.charAt(j));
                 }
 
+                if (isPrefix) {
+                    break;
+                }
+
                 current.isLeaf = true;
-                leafCnt++;
             }
 
-            if (leafCnt == n) {
-                sb.append("YES\n");
+            if (isPrefix) {
+                sb.append("NO\n");
                 continue;
             }
             
-            sb.append("NO\n");
+            sb.append("YES\n");
 
         }
 
