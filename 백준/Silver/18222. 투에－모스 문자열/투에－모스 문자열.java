@@ -9,7 +9,7 @@ public class Main {
 
         int nearestTwo = 0;
         for (int i = 0;; i++) {
-            if (Math.pow(2, i) >= k) {
+            if (Math.pow(2, i) > k - 1) {
                 break;
             }
             nearestTwo = i;
