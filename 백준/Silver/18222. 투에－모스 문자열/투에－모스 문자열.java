@@ -3,31 +3,41 @@ import java.io.*;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String args[]) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         long k = Long.parseLong(br.readLine());
+
+        int nearestTwo = 0;
+        for (int i = 0;; i++) {
+            if (Math.pow(2, i) >= k) {
+                break;
+            }
+            nearestTwo = i;
+        }
+
+        long lastHalfCount = 0;
+        long newIdx = k - 1;
+
+        for (int i = nearestTwo; i >= 0; i--) {
+
+            if (newIdx >= (long) (Math.pow(2, i + 1) + Math.pow(2, i)) / 2) {
+                lastHalfCount++;
+                newIdx = newIdx - ((long) (Math.pow(2, i + 1) + (long) Math.pow(2, i)) / 2)
+                        + (long) Math.pow(2, i - 1);
+
+                continue;
+            }
+
+            newIdx = newIdx - (long) Math.pow(2, i) + (long) Math.pow(2, i - 1);
+        }
         
-        System.out.println(findKthChar(k));
-    }
-
-    // 재귀적으로 k번째 문자 찾기
-    public static int findKthChar(long k) {
-        if (k == 1) {
-            return 0; // X_1의 첫 번째 문자는 항상 0
+        if (lastHalfCount % 2 == 0) {
+            System.out.println(0);
+            return;
         }
 
-        // 가장 가까운 2의 제곱수 찾기
-        long length = 1; // 초기 길이
-        while (2 * length < k) {
-            length *= 2;
-        }
+        System.out.println(1);
+        return;
 
-        // k가 첫 번째 절반에 속하면 그대로 탐색
-        if (k <= length) {
-            return findKthChar(k);
-        }
-
-        // k가 두 번째 절반에 속하면 반전된 값 탐색
-        return 1 - findKthChar(k - length);
     }
 }
