@@ -4,7 +4,7 @@ import java.util.*;
 class Main {
 
     static int answer;
-    static ArrayList<int[]> matrixs = new ArrayList<>();
+    static int[][] matrixs;
     static int[][] dp;
     static int N;
     
@@ -12,9 +12,11 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         N = Integer.parseInt(br.readLine());
+        matrixs = new int[N][N];
         for (int i = 0; i < N; i++) {
             String[] input = br.readLine().split(" ");
-            matrixs.add(new int[] { Integer.parseInt(input[0]), Integer.parseInt(input[1]) });
+            matrixs[i][0] = Integer.parseInt(input[0]);
+            matrixs[i][1] = Integer.parseInt(input[1]);
         }
 
         dp = new int[N][N];
@@ -25,7 +27,7 @@ class Main {
 
                 for (int k = i; k < j; k++) {
                     dp[i][j] = Math.min(
-                            dp[i][j], dp[i][k] + dp[k + 1][j] + matrixs.get(i)[0] * matrixs.get(k + 1)[0] * matrixs.get(j)[1]);
+                            dp[i][j], dp[i][k] + dp[k + 1][j] + matrixs[i][0] * matrixs[k+1][0] * matrixs[j][1]);
                 }
             }
         }
