@@ -39,16 +39,15 @@ class Main {
         }
 
         while (!que.isEmpty()) {
+            
             int size = que.size();
-
+            
             List<Integer> temp = new ArrayList<>();
-            for (int i = 0; i < size; i++) {
-                temp.add(que.poll());
-            }
-
             int tempMinTime = Integer.MAX_VALUE;
-            for (int target : temp) {
-                tempMinTime = Math.min(tempMinTime, time[target]);
+            for (int i = 0; i < size; i++) {
+                int tempTarget = que.poll();
+                temp.add(tempTarget);
+                tempMinTime = Math.min(tempMinTime, time[tempTarget]);  
             }
 
             for (int target : temp) {
@@ -69,7 +68,7 @@ class Main {
 
             answer += tempMinTime;
         }
-
+    
         System.out.println(answer);
     }
 }
